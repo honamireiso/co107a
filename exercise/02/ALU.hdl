@@ -42,7 +42,7 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-// if (zx==1) set x = 0
+    // if (zx==1) set x = 0
     Mux16(a=x,b=false,sel=zx,out=zxout);
 
     // if (zy==1) set y = 0
