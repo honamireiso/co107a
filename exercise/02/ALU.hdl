@@ -48,8 +48,8 @@ CHIP ALU {
     // if (zy==1) set y = 0
     Mux16(a=y,b=false,sel=zy,out=zyout); 
 
-    // if (nx==1) set x = ~x
-    // if (ny==1) set y = ~y  
+    // if (nx==1) set x = !x
+    // if (ny==1) set y = !y  
     Not16(in=zxout,out=notx);
     Not16(in=zyout,out=noty);
     Mux16(a=zxout,b=notx,sel=nx,out=nxout); 
@@ -61,7 +61,7 @@ CHIP ALU {
     And16(a=nxout,b=nyout,out=andout);
     Mux16(a=andout,b=addout,sel=f,out=fout);
     
-    // if (no==1) set out = ~out
+    // if (no==1) set out = !out
     // 1 if (out<0),  0 otherwise
     Not16(in=fout,out=nfout);
     Mux16(a=fout,b=nfout,sel=no,out=out,out[0..7]=zr1,out[8..15]=zr2,out[15]=ng);
