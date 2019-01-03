@@ -42,7 +42,7 @@ CHIP CPU {
     Not(in=instruction[15], out=Ainstruction);//instruction的第15位元可分辨其為A/C指令，A為0，C為1
     Not(in=Ainstruction, out=Cinstruction)//C指令為A指令的相反
 
-    And(a=Cinstruction, b=instruction[5], out=ALUToA);//instruction[5]在C指令中屬於dest，控制資料儲存位置，這裡用於控制Aregister的輸入
+    And(a=Cinstruction, b=instruction[5], out=ALUToA);//instruction[5]在C指令中控制資料儲存位置，這裡用於控制Aregister的輸入
     Mux(a=instruction[0..15], b=ALUout, sel=ALUToA, out=Aregin);//由ALUToA控制Aregister的輸入為ALUout或instruction
 
     Or(a=Ainstruction, b=ALUToA, out=loadA);//若輸入為A指令或ALU輸出則利用loadA使ARegister暫存輸入
