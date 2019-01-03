@@ -11,64 +11,32 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-// forever
-//   arr = SCREEN
-//   n = 8192
-//   i = 0
-//   while (i < n) {
-//     if (*KBD != 0)
-//       arr[i] = -1
-//     else
-//       arr[i] = 0
-//     i = i + 1
-//   }
-// goto forever;
-// arr = SCREEN
-// n=8192
-// FOREVER:
-// loop:
-//   if (i==n) goto ENDLOOP
-//   if (*KBD != 0)
-//     RAM[arr+i] = -1
-//   else 
-//     RAM[arr+i] = 0
-//   i++
-// goto loop
-// ENDLOOP:
-// goto FOREVER
-// --------------------------
-
 (FOREVER)
-// arr = SCREEN
 	@SCREEN
 	D=A
 	@arr
 	M=D
-
-// n=8192
+	
 	@8192
 	D=A
 	@n
 	M=D
-// i = 0
+
 	@i
 	M=0
 (LOOP)
-  // if (i==n) goto ENDLOOP
 	@i
 	D=M
 	@n
 	D=D-M
 	@ENDLOOP
 	D; JEQ
-	
-  // if (*KBD != 0)
+
 	@KBD
-	D=M     // D = *KBD
+	D=M     
 	@ELSE
-	D; JEQ  // if (*KDB==0) goto ELSE
+	D; JEQ  
 	
-	//   RAM[arr+i] = -1
 	@arr
 	D=M
 	@i
@@ -78,8 +46,6 @@
 	@ENDIF
 	0; JMP
 (ELSE)	
-  // else 
-  //   RAM[arr+i] = 0
 	@arr
 	D=M
 	@i
@@ -88,7 +54,6 @@
 	
 (ENDIF)
 	
-	// i++
 	@i
 	M=M+1
 	
