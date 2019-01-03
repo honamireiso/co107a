@@ -49,14 +49,14 @@ CHIP CPU {
     
     Not(in=isC, out=isA);   
     
-    // AluToA = isC & d1
+    // AluToA = isC and d1
     
     And(a=isC, b=d1, out=AluToA);     
     Or(a=isA, b=AluToA, out=Aload);
     
     Mux16(a=instruction, b=ALUout, sel=isC, out=Ain);
     
-    // Aload = isA | (isC & d1),     addressM=Aout[0..14]
+    // Aload = isA or (isC and d1),     addressM=Aout[0..14]
     
     ARegister(in=Ain, load=Aload, out=Aout, out[0..14]=addressM);   
     
@@ -64,7 +64,7 @@ CHIP CPU {
     
     And(a=isC, b=d2, out=Dload);
     
-    // Dload = isC & d2
+    // Dload = isC and d2
     
     DRegister(in=ALUout, load=Dload, out=Dout);  
     
@@ -74,36 +74,36 @@ CHIP CPU {
 
     // JUMP condition
     
-    // ngzr = (ng | zr)
+    // ngzr = (ng or zr)
     
     Or(a=ng, b=zr, out=ngzr);             
     
-    // g = out > 0 = !(ng | zr);  ng = (out < 0);  zr = (out = 0)
+    // g = out > 0 = !(ng or zr);  ng = (out < 0);  zr = (out = 0)
     
     Not(in=ngzr, out=gt);
     
-    // passLT = (ng & LT)
+    // passLT = (ng and LT)
     
     And(a=ng, b=j1, out=passLT);
     
-    // passEQ = (zr & EQ)
+    // passEQ = (zr and EQ)
     
     And(a=zr, b=j2, out=passEQ);  
     
-    // passGT = (gt & GT)
+    // passGT = (gt and GT)
     
     And(a=gt, b=j3, out=passGT);          
     Or(a=passLT, b=passEQ, out=passLE);
     Or(a=passLE, b=passGT, out=pass);
     
-    // PCload = isC & pass
+    // PCload = isC and pass
     
     And(a=isC, b=pass, out=PCload);      
-    PC(in=Aout, load=PCload, inc=true, reset=reset, out[0..14]=pc); // PCload = isC & ((ng&j1) | (zr&j2) | (!ng&!zr&j3))
+    PC(in=Aout, load=PCload, inc=true, reset=reset, out[0..14]=pc); // PCload = isC and ((ng&j1) or (zr&j2) or (!ng&!zr&j3))
 
     // output
     
-    // writeM = isC & d3
+    // writeM = isC and d3
     
     And(a=isC, b=d3, out=writeM);        
 }
