@@ -69,5 +69,5 @@ CHIP CPU {
     Or(a=jle, b=jgt, out=jmptoA);//若輸出小於等於或大於0，則跳躍指令為JMP
     And(a=Cinstruction, b=jmptoA, out=PCload);//若為C指令，並且有JMP指令時，PC載入
     Not(in=PCload, out=PCinc);//PC非載入時則+1
-    PC(in=Aout, load=PCload, inc=PCinc, reset=reset, out=pc[15]);//主要以reset/load/inc的問似處理Aregister之輸出
+    PC(in=Aout, load=PCload, inc=PCinc, reset=reset, out=pc[15]);
 }
