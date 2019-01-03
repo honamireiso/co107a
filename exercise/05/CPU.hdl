@@ -97,9 +97,9 @@ CHIP CPU {
     Or(a=passLE, b=passGT, out=pass);
     
     // PCload = isC and pass
-    
+    // PCload = isC and ((ng and j1) or (zr and j2) or (!ng and !zr and j3))
     And(a=isC, b=pass, out=PCload);      
-    PC(in=Aout, load=PCload, inc=true, reset=reset, out[0..14]=pc); // PCload = isC and ((ng&j1) or (zr&j2) or (!ng&!zr&j3))
+    PC(in=Aout, load=PCload, inc=true, reset=reset, out[0..14]=pc); 
 
     // output
     
